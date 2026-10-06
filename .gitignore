@@ -1,0 +1,37 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C/C++ build artifacts & virtual environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Proof of Nature (Do NOT commit photos to git history!)
+grass.jpg
+grass.jpeg
+grass.png
+grass.webp
+grass.avif
+*.grass.jpg
+*.grass.png
+
+# Local Model Caches & Hugging Face downloads
+.cache/
+model_cache/
+checkpoints/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
