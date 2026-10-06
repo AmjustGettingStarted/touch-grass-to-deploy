@@ -35,27 +35,35 @@ if [ ! -f "$VERIFY_SCRIPT" ]; then
     exit 0
 fi
 
-# Locate suitable Python binary (prioritize local virtualenvs)
+# Helper to verify a functional Python interpreter
+is_valid_python() {
+    [ -n "$1" ] && "$1" -c "import sys" >/dev/null 2>&1
+}
+
+# Locate suitable Python binary (prioritizes active virtualenvs & filters broken aliases)
 PYTHON_BIN=""
 
-if [ -f "$REPO_ROOT/.venv/bin/python" ]; then
+if is_valid_python "$REPO_ROOT/.venv/bin/python"; then
     PYTHON_BIN="$REPO_ROOT/.venv/bin/python"
-elif [ -f "$REPO_ROOT/.venv/Scripts/python.exe" ]; then
+elif is_valid_python "$REPO_ROOT/.venv/Scripts/python.exe"; then
     PYTHON_BIN="$REPO_ROOT/.venv/Scripts/python.exe"
-elif [ -f "$REPO_ROOT/venv/bin/python" ]; then
+elif is_valid_python "$REPO_ROOT/venv/bin/python"; then
     PYTHON_BIN="$REPO_ROOT/venv/bin/python"
-elif [ -f "$REPO_ROOT/venv/Scripts/python.exe" ]; then
+elif is_valid_python "$REPO_ROOT/venv/Scripts/python.exe"; then
     PYTHON_BIN="$REPO_ROOT/venv/Scripts/python.exe"
-elif command -v python3 >/dev/null 2>&1; then
-    PYTHON_BIN="python3"
-elif command -v python >/dev/null 2>&1; then
-    PYTHON_BIN="python"
-elif command -v py >/dev/null 2>&1; then
+elif is_valid_python "py -3"; then
     PYTHON_BIN="py -3"
-else
-    echo "❌ Error: Python not found in PATH or virtual environment!"
-    echo "Please ensure Python 3.9+ is installed to run the Touch Grass pre-push gatekeeper."
-    exit 1
+elif is_valid_python "python3"; then
+    PYTHON_BIN="python3"
+elif is_valid_python "python"; then
+    PYTHON_BIN="python"
+fi
+
+if [ -z "$PYTHON_BIN" ]; then
+    echo "⚠️  Touch Grass gatekeeper: No functional Python environment detected."
+    echo "💡 To enforce gatekeeping: create a venv (python -m venv .venv) and install requirements.txt"
+    echo "💡 To bypass gatekeeping for this push: use git push --no-verify"
+    exit 0
 fi
 
 # Run the verification script
