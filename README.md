@@ -12,7 +12,7 @@
 
 ## 📌 Submission Information
 - **Challenge:** DEV Community x Hugging Face Hacktoberfest 2026 Challenge (Week 1)
-- **Theme:** *"Touch Grass"* — Building tools where the screen is the *shortest part of the experience*.
+- **Theme:** *"Touch Grass"* Building tools where the screen is the *shortest part of the experience*.
 - **Tags:** `#devchallenge` `#hf26challenge`
 
 ---
@@ -39,7 +39,7 @@ git push
 
 The hook pauses your terminal, verifies that a fresh proof image (`grass.jpg`) exists in your project directory, and feeds it into **`vikhyatk/moondream2`** — an open-weight vision-language model executing **100% locally on your CPU**.
 
-If the local vision model detects genuine foliage, grass, trees, or outdoor sky, your push is **authorized**, the photo is consumed (requiring fresh proof for future deploys), and your code ships to the remote. If you haven't stepped outside—or tried to feed it a screenshot of a terminal, an indoor wall, or desktop wallpapers—the push is **aborted**.
+If the local vision model detects genuine foliage, grass, trees, or outdoor sky, your push is **authorized**, the photo is consumed (requiring fresh proof for future deploys), and your code ships to the remote. If you haven't stepped outside or tried to feed it a screenshot of a terminal, an indoor wall, or desktop wallpapers the push is **aborted**.
 
 ---
 
